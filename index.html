@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -15,6 +15,23 @@
         #bebeh img {
             display: block;
             margin: 0 auto;
+        }
+        /* Kolase untuk section sayang */
+        #sayang {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            padding: 20px;
+        }
+        #sayang img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        #sayang img:hover {
+            transform: scale(1.05);
         }
     </style>
 </head>
@@ -54,11 +71,11 @@
 
      <section id="sayang">
         <h2>makasii banyakk udahh ngasihh  hadiah buat akuu, maaff belumm bisa kasih lebihh</h2>
-        <img src="assets/bebeh.jpg"
-            <img src="assets/bebeh1.jpg"
-            <img src="assets/bebeh2.jpg"
-            <img src="assets/bebeh3.jpg"
-            <img src="assets/bebeh4.jpg"
+        <img src="assets/bebeh.jpg">
+        <img src="assets/bebeh1.jpg">
+        <img src="assets/bebeh2.jpg">
+        <img src="assets/bebeh3.jpg">
+        <img src="assets/bebeh4.jpg">
         <!-- Tambahkan gambar lebih banyak -->
     </section>
 
