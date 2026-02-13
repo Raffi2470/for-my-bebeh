@@ -17,11 +17,20 @@
             margin: 0 auto;
         }
         /* Kolase untuk section sayang */
-        #sayang {
+        #sayang .collage {
+            display: flex;
+            align-items: start;
+            gap: 20px;
+        }
+        #sayang .grid-2x2 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            grid-template-columns: 1fr 1fr;
             gap: 10px;
-            padding: 20px;
+            flex: 1;
+        }
+        #sayang .side {
+            flex: 0 0 auto;
+            width: 150px; /* Sesuaikan ukuran jika perlu */
         }
         #sayang img {
             width: 100%;
@@ -71,12 +80,16 @@
 
      <section id="sayang">
         <h2>makasii banyakk udahh ngasihh  hadiah buat akuu, maaff belumm bisa kasih lebihh</h2>
-        <img src="assets/bebeh.jpg">
-        <img src="assets/bebeh1.jpg">
-        <img src="assets/bebeh2.jpg">
-        <img src="assets/bebeh3.jpg">
-        <img src="assets/bebeh4.jpg">
-        <!-- Tambahkan gambar lebih banyak -->
+        <div class="collage">
+            <div class="grid-2x2">
+                <img src="assets/bebeh.jpg" alt="Bebeh">
+                <img src="assets/bebeh1.jpg" alt="Bebeh 1">
+                <img src="assets/bebeh2.jpg" alt="Bebeh 2">
+                <img src="assets/bebeh3.jpg" alt="Bebeh 3">
+            </div>
+            <img src="assets/bebeh4.jpg" alt="Bebeh 4" class="side">
+        </div>
+        <!-- Tambahkan gambar lebih banyak jika diperlukan -->
     </section>
 
     
