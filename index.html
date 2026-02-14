@@ -112,6 +112,11 @@
             font-size: 20px; 
             color: #d2b0d0; 
             display: none; 
+            animation: resultFadeIn 1s ease-in; 
+        }
+        @keyframes resultFadeIn { 
+            from { opacity: 0; transform: scale(0.8); } 
+            to { opacity: 1; transform: scale(1); } 
         }
         /* Section baru: Pesan Cinta */
         #pesan-cinta { 
@@ -127,7 +132,7 @@
             from { transform: translateY(20px); opacity: 0; } 
             to { transform: translateY(0); opacity: 1; } 
         }
-        /* Confetti effect - ditingkatkan dengan warna-warni */
+        /* Confetti effect - ditingkatkan dengan warna-warni dan lebih banyak */
         .confetti { 
             position: fixed; 
             top: 0; 
@@ -146,6 +151,90 @@
         @keyframes fall { 
             to { transform: translateY(100vh) rotate(360deg); } 
         }
+        /* Hearts animation - tambahan untuk lebih romantis */
+        .hearts { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 1000; 
+        }
+        .heart { 
+            position: absolute; 
+            font-size: 20px; 
+            color: #ff69b4; 
+            animation: heartFall 4s linear infinite; 
+        }
+        @keyframes heartFall { 
+            to { transform: translateY(100vh) rotate(180deg); } 
+        }
+        /* Sparkle effect - partikel berkilauan */
+        .sparkles { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 1000; 
+        }
+        .sparkle { 
+            position: absolute; 
+            width: 5px; 
+            height: 5px; 
+            background: #ffd700; 
+            border-radius: 50%; 
+            animation: sparkleTwinkle 2s linear infinite; 
+        }
+        @keyframes sparkleTwinkle { 
+            0%, 100% { opacity: 0; transform: scale(0); } 
+            50% { opacity: 1; transform: scale(1); } 
+        }
+        /* Bounce animation untuk tombol setelah klik */
+        .bounce { 
+            animation: bounce 0.5s ease; 
+        }
+        @keyframes bounce { 
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 
+            40% { transform: translateY(-10px); } 
+            60% { transform: translateY(-5px); } 
+        }
+        /* Typing effect untuk pesan hasil */
+        .typing { 
+            overflow: hidden; 
+            border-right: 2px solid #d2b0d0; 
+            white-space: nowrap; 
+            animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite; 
+        }
+        @keyframes typing { 
+            from { width: 0; } 
+            to { width: 100%; } 
+        }
+        @keyframes blink-caret { 
+            from, to { border-color: transparent; } 
+            50% { border-color: #d2b0d0; } 
+        }
+        /* Floating hearts di background saat klik */
+        .floating-hearts { 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            pointer-events: none; 
+            z-index: 999; 
+        }
+        .floating-heart { 
+            position: absolute; 
+            font-size: 30px; 
+            color: #ff1493; 
+            animation: floatUp 5s linear infinite; 
+        }
+        @keyframes floatUp { 
+            to { transform: translateY(-100vh) rotate(360deg); opacity: 0; } 
+        }
     </style>
 </head>
 <body>
@@ -155,14 +244,12 @@
     </header>
     
     <nav>
-
         <a href="#sayang">SAYANGGGGGGGG</a>
         <a href="#pesan-cinta">PESANN CINTAAA</a>
         <a href="#WILL-YU">WILL YOUU??</a>
     </nav>
     
     <section id="bebeh">
-        
         <img src="assets/foto1.gif" alt="Foto 1">
         <img src="assets/foto2.gif" alt="Foto 2">
         <img src="assets/foto3.gif" alt="Foto 3">
@@ -184,7 +271,6 @@
     </section>
 
     <section id="sayang">
-    
         <div class="collage">
             <img src="assets/bebeh.jpg" alt="Bebeh">
             <img src="assets/bebeh1.jpg" alt="Bebeh 1">
@@ -198,15 +284,19 @@
         <h2>PESANNN CINTAAAAAAAAAAAAAAAA</h2>
         <p class="message">ANTARTIKAA BOLEE JAUHHH</p>
         <p class="message" style="animation-delay: 1s;">TAPII DI ANTARAA KITAA JANGANNN SAMPEEE YAAA💖</p>
+        <p class="message" style="animation-delay: 2s;">DARI KELAS 1 SMP SAMPE SEKARANG KELAS 1 SMA, AKU SUKA KAMU TERUS YA SAYANGGGG 💕</p>
     </section>
 
     <section id="WILL-YU">
         <h2>WILL YOUUU BE MY VALENTINEEE??</h2>
         <div class="poll">
-            <button onclick="showResult()">YEAHHH</button>
+            <button id="yesButton" onclick="showResult()">YEAHHH</button>
         </div>
-        <div id="result" class="result"></div>
+        <div id="result" class="result typing"></div>
         <div id="confetti-container" class="confetti"></div>
+        <div id="hearts-container" class="hearts"></div>
+        <div id="sparkles-container" class="sparkles"></div>
+        <div id="floating-hearts-container" class="floating-hearts"></div>
     </section>
 
     <script>
@@ -220,20 +310,31 @@
             });
         });
 
-        // Fungsi untuk polling dengan confetti
+        // Fungsi untuk polling dengan banyak animasi
         function showResult() {
             const resultDiv = document.getElementById('result');
-            resultDiv.innerHTML = 'YEYYYY, ILOAFFFFFYUUU SO MUCHHH, KAMUU PENYEMANGATT AKUUU, MAKASIII UDAHHH NGESUPPORTT AKUU SAMPAIIIII DII TITIKK INIII, MAKASIIIIIII BANYAKKKKKKKKKK SAYANGGG 💖';
-            resultDiv.style.display = 'block';
+            const button = document.getElementById('yesButton');
+            // Pesan hasil dihapus
+            // resultDiv.innerHTML = 'YEYYYY, ILOAFFFFFYUUU SO MUCHHH, KAMUU PENYEMANGATT AKUUU, MAKASIII UDAHHH NGESUPPORTT AKUU SAMPAIIIII DII TITIKK INIII, MAKASIIIIIII BANYAKKKKKKKKKK SAYANGGG 💖';
+            // resultDiv.style.display = 'block';
+            // Tambahkan bounce ke tombol
+            button.classList.add('bounce');
+            setTimeout(() => button.classList.remove('bounce'), 500);
             // Tambahkan confetti
             createConfetti();
+            // Tambahkan hearts
+            createHearts();
+            // Tambahkan sparkles
+            createSparkles();
+            // Tambahkan floating hearts
+            createFloatingHearts();
         }
 
-        // Fungsi confetti ditingkatkan
+        // Fungsi confetti ditingkatkan - lebih banyak partikel
         function createConfetti() {
             const container = document.getElementById('confetti-container');
             const colors = ['#ff0000', '#ff69b4', '#d2b0d0', '#ffb6c1', '#ff1493']; // Warna merah, pink, ungu
-            for (let i = 0; i < 100; i++) { // Lebih banyak partikel
+            for (let i = 0; i < 300; i++) { // Ditingkatkan ke 300 partikel
                 const piece = document.createElement('div');
                 piece.className = 'confetti-piece';
                 piece.style.left = Math.random() * 100 + '%';
@@ -244,6 +345,54 @@
             setTimeout(() => {
                 container.innerHTML = '';
             }, 3000);
+        }
+
+        // Fungsi hearts - animasi hati jatuh
+        function createHearts() {
+            const container = document.getElementById('hearts-container');
+            for (let i = 0; i < 100; i++) { // Ditingkatkan ke 100 hati
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = '❤️';
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 4 + 's';
+                container.appendChild(heart);
+            }
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 4000);
+        }
+
+        // Fungsi sparkles - partikel berkilauan
+        function createSparkles() {
+            const container = document.getElementById('sparkles-container');
+            for (let i = 0; i < 150; i++) { // 150 sparkle
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(sparkle);
+            }
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 2000);
+        }
+
+        // Fungsi floating hearts - hati mengambang naik
+        function createFloatingHearts() {
+            const container = document.getElementById('floating-hearts-container');
+            for (let i = 0; i < 50; i++) { // 50 floating hearts
+                const floatingHeart = document.createElement('div');
+                floatingHeart.className = 'floating-heart';
+                floatingHeart.innerHTML = '💖';
+                floatingHeart.style.left = Math.random() * 100 + '%';
+                floatingHeart.style.animationDelay = Math.random() * 5 + 's';
+                container.appendChild(floatingHeart);
+            }
+            setTimeout(() => {
+                container.innerHTML = '';
+            }, 5000);
         }
     </script>
 </body>
